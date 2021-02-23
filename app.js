@@ -15,15 +15,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // set the Mongodb connection details
-const CONNECTION_URL =
-  "mongodb+srv://inventoryuser:iu123@cluster0.qeyvd.mongodb.net/inventory?retryWrites=true";
+// "mongodb+srv://inventoryuser:iu123@cluster0.qeyvd.mongodb.net/inventory?retryWrites=true";
 const DATABASE_NAME = "inventory";
 var database, collection;
 
 // Listen on port for api requests and connect to our db.
 app.listen(port, () => {
   MongoClient.connect(
-    CONNECTION_URL,
+    // CONNECTION_URL,
+    process.env.MONGODB_URI,
     { useNewUrlParser: true, useUnifiedTopology: true },
     (error, client) => {
       if (error) throw error;
