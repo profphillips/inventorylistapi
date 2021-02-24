@@ -1,28 +1,21 @@
 // app.js by John Phillips on 2021-02-22
-// based in part on:
-// https://www.thepolyglotdeveloper.com/2018/09/developing-restful-api-nodejs-mongodb-atlas/
-// https://dev.to/lennythedev/rest-api-with-mongodb-atlas-cloud-node-and-express-in-10-minutes-2ii1
-// https://blog.bitsrc.io/react-production-deployment-part-3-heroku-316319744885
 
 const express = require("express");
 const MongoClient = require("mongodb").MongoClient;
 const ObjectId = require("mongodb").ObjectID;
 
-// set up the express server
+// set up the express server to work with Heroku
 const app = express();
 const port = process.env.PORT || 5000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// set the Mongodb connection details
-// "mongodb+srv://inventoryuser:iu123@cluster0.qeyvd.mongodb.net/inventory?retryWrites=true";
 const DATABASE_NAME = "inventory";
 var database, collection;
 
 // Listen on port for api requests and connect to our db.
 app.listen(port, () => {
   MongoClient.connect(
-    // CONNECTION_URL,
     process.env.MONGODB_URI,
     { useNewUrlParser: true, useUnifiedTopology: true },
     (error, client) => {
@@ -97,4 +90,15 @@ app.listen(port, () => {
   // -------------------------------------------------------------------------
 });
 // End of app.js -------------------------------------------------------------
+// based in part on:
+// https://www.thepolyglotdeveloper.com/2018/09/developing-restful-api-nodejs-mongodb-atlas/
+// https://dev.to/lennythedev/rest-api-with-mongodb-atlas-cloud-node-and-express-in-10-minutes-2ii1
+// https://blog.bitsrc.io/react-production-deployment-part-3-heroku-316319744885
+//
+// Notes:
+// 1. postman.com testing, set Body to x-www-form-urlencoded for POST and PUT tests
+// 2. Store the Mongodb connection string with user/password on Heroku Settings /
+//    Reveal Config Vars and then key of MONGODB_URI and value of connection string
+// 3. Heroku: click More / View logs to see errors as you test api from postman
+// 4. Heroku: click Activity / View build log to see any issues
 // ---------------------------------------------------------------------------
