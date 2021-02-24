@@ -1,6 +1,7 @@
 // app.js by John Phillips on 2021-02-22
 
 const express = require("express");
+const cors = require("cors");
 const MongoClient = require("mongodb").MongoClient;
 const ObjectId = require("mongodb").ObjectID;
 
@@ -9,6 +10,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 const DATABASE_NAME = "inventory";
 var database, collection;
